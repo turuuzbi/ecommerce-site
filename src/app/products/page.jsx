@@ -4,13 +4,14 @@ import { useState, useEffect } from "react";
 import { Product } from "../_components/Product";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { Header } from "../_components/Header";
 
 const pageSize = 12;
 
 const Page = () => {
-  const router = useRouter;
+  const router = useRouter();
   const [productCard, setProductCard] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [totalProduct, setTotalProduct] = useState(0);
 
   const totalPage = Array.from(
@@ -39,6 +40,7 @@ const Page = () => {
 
   return (
     <div className="flex flex-col m-5 w-screen items-center">
+      <Header></Header>
       <div className="max-w-[1500px]">
         <div className="self-start flex mb-5">
           <input
@@ -66,10 +68,10 @@ const Page = () => {
             <Button
               key={page}
               variant="ghost"
-              className="border border-gray-500"
+              className={`border ${currentPage === page ? "bg-gray-300" : ""}`}
               onClick={() => {
-                router.push(`/products?page=${currentPage}`);
-                setCurrentPage();
+                router.push(`/products?page=${page}`);
+                setCurrentPage(page);
               }}
             >
               {page}

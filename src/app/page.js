@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Product } from "./_components/Product";
+import { Header } from "./_components/Header";
 
 const Page = () => {
   const router = useRouter();
@@ -22,7 +23,8 @@ const Page = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center p-25">
+      <Header></Header>
       <div className="font-bold text-4xl mt-20">Featured Products</div>
       <div className="text-gray-500 text-2xl mb-30">
         Check out our most popular items that costumers love.
