@@ -8,14 +8,17 @@ export const Product = (props) => {
   const cardPrice = props.cardPrice;
   return (
     <div>
-      <Card className="flex w-[350px] p-5">
+      <Card className="flex w-[350px] p-5 hover:cursor-pointer">
         <div>
           <img src={cardImage[0]} />
           <div className="font-bold">{cardTitle}</div>
           <div className="text-gray-500">{cardCategory}</div>
           <div className="flex justify-between items-center mt-20 mb-10">
             <div className="font-bold">${cardPrice}</div>
-            <Button variant="ghost" className="border border-gray-500">
+            <Button
+              variant="ghost"
+              className="border border-gray-500 hover:cursor-pointer"
+            >
               View details
             </Button>
           </div>

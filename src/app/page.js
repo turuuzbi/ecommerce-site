@@ -25,7 +25,7 @@ const Page = () => {
   return (
     <div className="flex flex-col items-center p-25">
       <Header></Header>
-      <div className="font-bold text-4xl mt-20">Featured Products</div>
+      <div className="font-bold text-4xl mt-5">Featured Products</div>
       <div className="text-gray-500 text-2xl mb-30">
         Check out our most popular items that costumers love.
       </div>
@@ -43,7 +43,7 @@ const Page = () => {
           );
         })}
       </div>
-      <Button className="mt-15">
+      <Button className="mt-15 hover:cursor-pointer">
         <div onClick={() => router.push("/products?page=1")}>
           View All Products
         </div>

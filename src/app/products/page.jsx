@@ -5,6 +5,7 @@ import { Product } from "../_components/Product";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { Header } from "../_components/Header";
+import { Input } from "@/components/ui/input";
 
 const pageSize = 12;
 
@@ -13,6 +14,7 @@ const Page = () => {
   const [productCard, setProductCard] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalProduct, setTotalProduct] = useState(0);
+  const [inputValue, setInputValue] = useState("");
 
   const totalPage = Array.from(
     { length: Math.ceil(totalProduct / pageSize) },
@@ -38,18 +40,24 @@ const Page = () => {
     fetchData();
   }, [currentPage]);
 
+  const filteredProducts = productCard.filter((product) =>
+    product.title.toLowerCase().includes(inputValue.toLowerCase())
+  );
+
   return (
     <div className="flex flex-col m-5 w-screen items-center">
       <Header></Header>
-      <div className="max-w-[1500px]">
+      <div className="max-w-[1500px] mt-25">
         <div className="self-start flex mb-5">
-          <input
+          <Input
             placeholder="Search here..."
-            className="border border-gray-500 rounded-lg"
+            onChange={(element) => {
+              setInputValue(element.target.value);
+            }}
           />
         </div>
         <div className="flex gap-5 flex-wrap">
-          {productCard.map((product) => {
+          {filteredProducts.map((product) => {
             return (
               <Product
                 key={product.id}
@@ -68,7 +76,9 @@ const Page = () => {
             <Button
               key={page}
               variant="ghost"
-              className={`border ${currentPage === page ? "bg-gray-300" : ""}`}
+              className={`border ${
+                currentPage === page ? "bg-gray-300" : ""
+              } hover:cursor-pointer`}
               onClick={() => {
                 router.push(`/products?page=${page}`);
                 setCurrentPage(page);
