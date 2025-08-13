@@ -1,10 +1,12 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { Product } from "./_components/Product";
 
 const Page = () => {
+  const router = useRouter();
   const [cards, setCard] = useState([]);
 
   const fetchData = async () => {
@@ -29,24 +31,20 @@ const Page = () => {
         {cards.map((card) => {
           console.log(cards);
           return (
-            <div key={card.id}>
-              <Card className="flex w-[350px] p-5">
-                <div>
-                  <img src={card.images} />
-                  <div className="font-bold">{card.title}</div>
-                  <div className="text-gray-500">{card.category}</div>
-                  <div className="flex justify-between items-center mt-20 mb-10">
-                    <div className="font-bold">${card.price}</div>
-                    <Button>View details</Button>
-                  </div>
-                </div>
-              </Card>
-            </div>
+            <Product
+              key={card.id}
+              cardImage={card.images}
+              cardTitle={card.title}
+              cardCategory={card.category}
+              cardPrice={card.price}
+            />
           );
         })}
       </div>
       <Button className="mt-15">
-        <div>View All Products</div>
+        <div onClick={() => router.push("/products?page=1")}>
+          View All Products
+        </div>
       </Button>
     </div>
   );
