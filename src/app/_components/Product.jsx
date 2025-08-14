@@ -1,11 +1,15 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 export const Product = (props) => {
+  const router = useRouter();
   const cardImage = props.cardImage;
   const cardTitle = props.cardTitle;
   const cardCategory = props.cardCategory;
   const cardPrice = props.cardPrice;
+  const productId = props.productId;
+
   return (
     <div>
       <Card className="flex w-[350px] p-5 hover:cursor-pointer">
@@ -18,6 +22,9 @@ export const Product = (props) => {
             <Button
               variant="ghost"
               className="border border-gray-500 hover:cursor-pointer"
+              onClick={() => {
+                router.push(`/products/${productId}`);
+              }}
             >
               View details
             </Button>

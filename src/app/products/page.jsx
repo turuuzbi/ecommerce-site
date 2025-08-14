@@ -26,21 +26,24 @@ const Page = () => {
     if (currentPage > 1) {
       skip = pageSize * (currentPage - 1);
     }
-    const response = await fetch(
-      `https://dummyjson.com/products?limit=${pageSize}&skip=${skip}`,
-      {
-        method: "GET",
-      }
-    );
+    let url = `https://dummyjson.com/products?limit=${pageSize}&skip=${skip}`;
+
+    if (inputValue === "") {
+      url = `https://dummyjson.com/products/search?q=${inputValue}&limit=${pageSize}&skip=${skip}`;
+    }
+    const response = await fetch(url, {
+      method: "GET",
+    });
     const data = await response.json();
     setProductCard(data.products);
     setTotalProduct(data.total);
   };
+
   useEffect(() => {
     fetchData();
-  }, [currentPage]);
+  }, [currentPage, inputValue]);
 
-  const filteredProducts = productCard.filter((product) =>
+  const filteredProducts = productCard?.filter((product) =>
     product.title.toLowerCase().includes(inputValue.toLowerCase())
   );
 
@@ -57,7 +60,7 @@ const Page = () => {
           />
         </div>
         <div className="flex gap-5 flex-wrap">
-          {filteredProducts.map((product) => {
+          {filteredProducts?.map((product) => {
             return (
               <Product
                 key={product.id}
@@ -65,6 +68,7 @@ const Page = () => {
                 cardTitle={product.title}
                 cardCategory={product.category}
                 cardPrice={product.price}
+                productId={product.id}
               />
             );
           })}
